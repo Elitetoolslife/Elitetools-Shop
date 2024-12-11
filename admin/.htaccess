@@ -1,3 +1,4 @@
+<!----------resources/views/admin/.htaccess------->
   Options +FollowSymLinks
   RewriteEngine on
   RewriteRule ^index\.html$ index.php [T=application/x-httpd-php,L]
