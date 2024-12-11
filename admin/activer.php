@@ -1,4 +1,4 @@
-
+MAKE SURE TO LARAVEL ELOQUENT ORM QUERY BUILDER LOGICS AND NOT DIRECT DB QUERY 
 <!----------app/Http/Controllers/Admin/ActivationController.php------->
 
 
