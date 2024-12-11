@@ -1,6 +1,13 @@
+
+<!----------app/Http/Controllers/Admin/ActivationController.php------->
+
+
+<!----------resources/views/admin/users ------->
+<!----------resources/views/admin/resseller/ ------->
+
 <?php
 
-include "header.php";
+
 
 $uid = mysqli_real_escape_string($dbcon, $_GET["id"]);
 $q = mysqli_query($dbcon, "SELECT * FROM users WHERE id='$uid'")or die(mysql_error());
