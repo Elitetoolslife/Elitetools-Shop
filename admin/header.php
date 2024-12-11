@@ -15,7 +15,161 @@ if(!isset($_SESSION['sname']) and !isset($_SESSION['sname'])){
 // if($usrid !== "freshtools") {
 // 	die();
 // }
-?>
+?><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Main - Admin Panel</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/flags.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/tickets.css') }}">
+    <script type="text/javascript" src="{{ asset('assets/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/bootbox.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/sorttable.js') }}"></script>
+
+    <link href="{{ asset('assets/style.css') }}" rel="stylesheet">
+
+    <style>
+        .alert.alert-shadowed {
+            box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        }
+
+        .alert {
+            margin-bottom: 20px;
+            margin-top: 0;
+            color: #fff;
+            border-width: 0;
+            border-left-width: 5px;
+            padding: 10px;
+            border-radius: 0;
+        }
+
+        .alert-danger {
+            border-color: #df5138;
+            background: #001f3f;
+        }
+
+        .content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1">
+                    <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+                <div class="navbar-brand" onclick="location.href='{{ url('admin') }}'" onmouseover="this.style.cursor='pointer'">
+                    <b>JeruxSHOP <small><span class="glyphicon glyphicon-refresh"></span></small></b>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="topFixedNavbar1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Account  <span class="glyphicon glyphicon-user"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('admin/settings') }}">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ url('admin/logout') }}">Logout <span class="glyphicon glyphicon-off pull-right"></span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="wrapper">
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="{{ url('admin') }}">
+                        <div class="navbar-brand">
+                            <font color="white"><b><span class="glyphicon glyphicon-fire"></span> Admin Panel</b></font>
+                        </div>
+                    </a>
+                </li>
+                <li><a href="https://jerux.to" target="_blank"><font color="white">Back to Jerux SHOP <span class="glyphicon glyphicon-share-alt"></span></font></a></li>
+                <li><font color="white"><b><span class="glyphicon glyphicon-dashboard"></span> Admin Dashboard</b></font></li>
+                <li><a href="{{ url('admin') }}"><span class="glyphicon glyphicon-home"></span> Main</a></li>
+                <li><a href="{{ url('admin/status') }}"><span class="glyphicon glyphicon-usd"></span> Financial Status</a></li>
+                <li><a href="{{ url('admin/orders') }}"><span class="glyphicon glyphicon-shopping-cart"></span> Orders</a></li>
+                <li><a href="{{ url('admin/news') }}"><span class="glyphicon glyphicon-plus"></span> Add News</a></li>
+                <li><a href="{{ url('admin/tools') }}"><span class="glyphicon glyphicon-eye-open"></span> Visualize Tools</a></li>
+                <li><a href="{{ url('admin/tickets') }}">
+                    <span class="glyphicon glyphicon-time"></span> Pending Tickets
+                    <span class="label label-danger">{{ $pendingTickets }}</span></a>
+                </li>
+                <li><a href="{{ url('admin/reports') }}">
+                    <span class="glyphicon glyphicon-time"></span> Pending Reports
+                    <span class="label label-danger">{{ $pendingReports }}</span></a>
+                </li>
+                <li><a href="{{ url('admin/users') }}">
+                    <span class="glyphicon glyphicon-user"></span> Users List
+                    <span class="label label-info">{{ $usersCount }}</span></a>
+                </li>
+                <li><a href="{{ url('admin/withdrawals') }}">
+                    <span class="glyphicon glyphicon-credit-card"></span> Withdraw Approval
+                    <span class="label label-danger">{{ $withdrawalRequestsCount }}</span></a>
+                </li>
+                <li><a href="{{ url('admin/sellers') }}">
+                    <span class="glyphicon glyphicon-fire"></span> Sellers
+                    <span class="label label-info">{{ $sellersCount }}</span></a>
+                </li>
+                <li><a href="{{ url('admin/logout') }}">
+                    <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div id="divPage">
+                    <div class="preload">
+                        <div id="mydiv"><img src="{{ asset('assets/wait.gif') }}" class="ajax-loader"></div>
+                    </div>
+                    <div class="content">
+                        <br><br>
+                        <!-- Your content goes here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var v_aa = 0;
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            if (v_aa == 1) {
+                $("#menu-toggle").html('<span class="glyphicon glyphicon-indent-right"></span>').show();
+                v_aa = 0;
+            } else {
+                $("#menu-toggle").html('<span class="glyphicon glyphicon-indent-left"></span>').show();
+                v_aa = 1;
+            }
+        });
+
+        $(function() {
+            $(".preload").fadeOut(500, function() {
+                $(".content").fadeIn(0);
+            });
+        });
+    </script>
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
