@@ -22,10 +22,10 @@ RewriteRule ^premium.html$  premium.php
 RewriteRule ^premiumAdd.html$  premiumAdd.php
 RewriteRule ^premiumTab1.html$  premiumTab1.php
 RewriteRule ^premiumTab2.html$  premiumTab2.php
-RewriteRule ^banks.html$  banks.php
-RewriteRule ^banksAdd.html$  banksAdd.php
-RewriteRule ^banksTab1.html$  banksTab1.php
-RewriteRule ^banksTab2.html$  banksTab2.php
+RewriteRule ^banks/index$  banks/index.blade.php
+RewriteRule ^banks/Add$  banks/Add.blade.php
+ banks/tab1$ ^banks/tab1.blade.php
+RewriteRule ^banks/tab2$  banks/tab2.blade.php
 RewriteRule ^smtp.html$  smtps.php
 RewriteRule ^smtpAdd.html$  smtpAdd.php
 RewriteRule ^smtpTab1.html$  smtpTab1.php
