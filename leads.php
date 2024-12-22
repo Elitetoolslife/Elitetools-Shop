@@ -23,9 +23,6 @@
 </head>
 <style>
     /* Styling for sortable table headers */
-    #table {
-        .sortable
-    }
     table th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
         content: " \25BE" 
     }
@@ -91,13 +88,13 @@
 
     /* Periodically updates page information every 3 seconds */
     setInterval(function() {
-        ajaxinfo()
+        ajaxinfo();
     }, 3000);
     ajaxinfo();
 
     /* Event handlers to manage keyboard interactions */
     $(document).keydown(function(event){
-        if(event.which=="17")
+        if(event.which == "17")
             cntrlIsPressed = true;
     });
 
@@ -108,32 +105,31 @@
     var cntrlIsPressed = false;
 
     /* Function to change page contents dynamically */
-    function pageDiv(n,t,u,x){
+    function pageDiv(n, t, u, x){
         if(cntrlIsPressed){
             window.open(u, '_blank');
             return false;
         }
         var obj = { Title: t, Url: u };
-        if ( ("/"+obj.Url) != location.pathname) {
-            if (x != 1) {history.pushState(obj, obj.Title, obj.Url);}
-            else{history.replaceState(obj, obj.Title, obj.Url);}
+        if ( ("/" + obj.Url) != location.pathname) {
+            if (x != 1) { history.pushState(obj, obj.Title, obj.Url); }
+            else { history.replaceState(obj, obj.Title, obj.Url); }
         }
         document.title = obj.Title;
         $("#mainDiv").html('<div id="mydiv"><img src="files/img/load2.gif" class="ajax-loader"></div>').show();
         $.ajax({
-            type:       'GET',
-            url:        'divPage'+n+'.html',
-            success:    function(data)
-            {
+            type: 'GET',
+            url: 'divPage' + n + '.html',
+            success: function(data) {
                 $("#mainDiv").html(data).show();
                 newTableObject = document.getElementById('table');
                 sorttable.makeSortable(newTableObject);
                 $(".sticky-header").floatThead({top:60});
-                if(x==0){ajaxinfo();}
+                if(x == 0) { ajaxinfo(); }
             }
         });
         if (typeof stopCheckBTC === 'function') { 
-            var a = stopCheckBTC();
+            stopCheckBTC();
         }
     }
 
@@ -145,7 +141,7 @@
     /* Event triggered when page loads, handles dropdown hover and clipboard interactions */
     $(window).on('load', function() {
         $('.dropdown').hover(function(){ $('.dropdown-toggle', this).trigger('click'); });
-        pageDiv(6,'Leads - JeruxShop','leads.html',1);
+        pageDiv(6, 'Leads - JeruxShop', 'leads.html', 1);
         var clipboard = new Clipboard('.copyit');
         clipboard.on('success', function(e) {
             setTooltip(e.trigger, 'Copied!');
@@ -164,7 +160,7 @@
     }
 
     function hideTooltip(btn) {
-        setTimeout(function() {$(btn).tooltip('hide'); console.log("hide-2");}, 1000);
+        setTimeout(function() { $(btn).tooltip('hide'); console.log("hide-2"); }, 1000);
     }
 </script>
 <style>
