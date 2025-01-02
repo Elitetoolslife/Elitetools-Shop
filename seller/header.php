@@ -1,38 +1,34 @@
-<?php
-ob_start();
-session_start();
-date_default_timezone_set('UTC');
-include "../includes/config.php";
+namespace App\Http\Middleware;
 
-if(!isset($_SESSION['sname']) and !isset($_SESSION['spass'])){
-   header("location: ../");
-   exit();
-}
-$uid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
-$q = mysqli_query($dbcon,"SELECT * FROM users WHERE username='$uid'")or die();
-$r = mysqli_fetch_assoc($q);
+use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
-if($r['resseller'] != "1"){
-  header("location: ../");
-  exit ();
+class CheckReseller
+{
+    public function handle(Request $request, Closure $next)
+    {
+        // Check if session variables are set
+        if (!Session::has('sname') || !Session::has('spass')) {
+            return redirect('/');
+        }
+
+        $uid = Session::get('sname');
+
+        // Retrieve user data
+        $user = DB::table('users')->where('username', $uid)->first();
+
+        // Check if the user is a reseller
+        if ($user->resseller != 1) {
+            return redirect('/');
+        }
+
+        // Continue to the next middleware or the controller
+        return $next($request);
+    }
 }
-$usrid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
 ?>
-<!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    	   <?php
-          $uid     = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
-          $q = mysqli_query($dbcon, "SELECT resseller FROM users WHERE username='$uid'")or die(mysqli_error());
-          $r = mysqli_fetch_assoc($q);
-		  $reselerif = $r['resseller'];
-       if ($reselerif == "1") { 
-          $uid = mysqli_real_escape_string($dbcon, $_SESSION['sname']);
-          $q = mysqli_query($dbcon, "SELECT soldb FROM resseller WHERE username='$uid'")or die(mysqli_error());
-          $r = mysqli_fetch_assoc($q);
-		
-							echo'';
-	   } else { }
-						        ?>
 	<link rel='shortcut icon' type='image/x-icon' href='../img/favicon.ico' />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
