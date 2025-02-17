@@ -1,3 +1,39 @@
+BladeTemplates/
+├── RDPs/
+│   └── table.blade.php
+├── cPanels/
+│   └── table.blade.php
+├── Shells/
+│   └── table.blade.php
+├── Leads/
+│   └── table.blade.php
+├── Premium/
+│   ├── Dating/
+│   │   └── Shop/
+│   │       └── table.blade.php
+│   └── Banks/
+│       └── table.blade.php
+├── Scampage/
+│   ├── table.blade.php
+│   └── Tutorial/
+│       └── table.blade.php
+├── Tickets/
+│   ├── table.blade.php
+│   └── Reports/
+│       └── table.blade.php
+├── AddBalance/
+│   └── table.blade.php
+└── Account/
+    ├── table.blade.php
+    ├── Setting/
+    │   └── table.blade.php
+    ├── MyOrders/
+    │   └── table.blade.php
+    ├── AddBalance/
+    │   └── table.blade.php
+    └── Logout/
+        └── table.blade.php
+
 <?php
 ob_start();
 session_start();
